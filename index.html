@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NC A&T Major Finder Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <!-- Enhanced Header -->
+<header>
+    <div class="header-background">
+        <div class="gradient-overlay"></div>
+        <div class="geometric-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+    
+    <div class="container header-content">
+        <div class="logo-section">
+            <div class="logo-circle">
+                <span class="logo-text">A&T</span>
+            </div>
+        </div>
+        
+        <h1 class="main-title">
+            <span class="title-line">NC A&T</span>
+            <span class="title-line">Major Finder</span>
+        </h1>
+        
+        <p class="subtitle-enhanced">
+            <span class="subtitle-icon">🎓</span>
+            Discover your perfect academic path in 5 minutes
+            <span class="subtitle-icon">✨</span>
+        </p>
+        
+        <div class="header-stats">
+            <div class="stat-badge">
+                <div class="stat-icon">📚</div>
+                <div class="stat-content">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Programs</div>
+                </div>
+            </div>
+            <div class="stat-badge">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-content">
+                    <div class="stat-number">5 min</div>
+                    <div class="stat-label">Quick Quiz</div>
+                </div>
+            </div>
+            <div class="stat-badge">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-content">
+                    <div class="stat-number">Top 5</div>
+                    <div class="stat-label">Matches</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">↓</div>
+            <span class="scroll-text">Scroll to explore</span>
+        </div>
+    </div>
+</header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h2>Find Your Path at NC A&T</h2>
+                <p>Answer questions about your interests, skills, and strengths to discover which majors, minors, and certificate programs align with your goals.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Programs</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5 min</span>
+                        <span class="stat-label">Quiz Time</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Top 5</span>
+                        <span class="stat-label">Matches</span>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="startQuiz()">Start Quiz</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text">Question <span id="current-question">1</span> of <span id="total-questions">20</span></p>
+            </div>
+
+            <!-- Question Container -->
+            <div id="question-container"></div>
+
+            <!-- Navigation Buttons -->
+            <div class="quiz-navigation">
+                <button class="btn-secondary" id="prev-btn" onclick="previousQuestion()" disabled>Previous</button>
+                <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <h2>Your Top Matches</h2>
+            <p class="results-intro">Based on your responses, here are the programs that best align with your interests and strengths:</p>
+            
+            <div id="results-container"></div>
+
+            <div class="results-actions">
+                <button class="btn-primary" onclick="downloadResultsPDF()">
+        📄 Download Results PDF
+            </button>
+            <button class="btn-secondary" onclick="restartQuiz()">Retake Quiz</button>
+            <button class="btn-secondary" onclick="shareResults()">Share Results</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NC A&T State University | <a href="https://www.ncat.edu/academics/majors-minors-and-programs/index.php" target="_blank">View All Programs</a></p>
+        </div>
+    </footer>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <script src="programs.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
