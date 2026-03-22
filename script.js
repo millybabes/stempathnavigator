@@ -452,7 +452,171 @@ const questions = [
             programTypePreference: 'Certificate'
         }
     ]
-}
+    },
+    
+    // ==================== NEW QUESTIONS FOR DIFFERENTIATION ====================
+    {
+        id: 21,
+        type: 'multiple-choice',
+        category: 'career',
+        question: 'What type of work environment appeals to you most?',
+        description: 'Think about where you see yourself thriving',
+        options: [
+            {
+                text: 'Large corporations and industry',
+                description: 'Fortune 500 companies, established organizations',
+                weights: { technology: 2, business: 3, teamwork: 2, problem_solving: 2 }
+            },
+            {
+                text: 'Creative studios and agencies',
+                description: 'Design firms, media companies, creative agencies',
+                weights: { design: 3, creativity: 3, technology: 2, communication: 2 }
+            },
+            {
+                text: 'Government and public service',
+                description: 'Federal, state or local government agencies',
+                weights: { communication: 2, teamwork: 2, problem_solving: 2, science: 1 }
+            },
+            {
+                text: 'Healthcare and social services',
+                description: 'Hospitals, clinics, non-profits, community organizations',
+                weights: { science: 2, communication: 3, teamwork: 3, hands_on: 2 }
+            },
+            {
+                text: 'Education and research',
+                description: 'Schools, universities, research labs',
+                weights: { science: 2, communication: 3, problem_solving: 2, creativity: 1 }
+            },
+            {
+                text: 'Startups and entrepreneurship',
+                description: 'Fast-paced, innovative, self-directed work',
+                weights: { creativity: 3, business: 3, problem_solving: 2, technology: 2 }
+            }
+        ]
+    },
+    {
+        id: 22,
+        type: 'multiple-choice',
+        category: 'workstyle',
+        question: 'Which work style describes you best?',
+        description: 'How do you prefer to approach tasks and projects?',
+        options: [
+            {
+                text: 'Building and making things',
+                description: 'Physical creation, construction, hands-on work',
+                weights: { hands_on: 3, design: 2, creativity: 2, technology: 1 }
+            },
+            {
+                text: 'Analyzing data and solving problems',
+                description: 'Research, data analysis, strategic thinking',
+                weights: { problem_solving: 3, math: 2, technology: 2, science: 1 }
+            },
+            {
+                text: 'Creating visual or artistic work',
+                description: 'Design, art, media, creative expression',
+                weights: { creativity: 3, design: 3, communication: 2, technology: 1 }
+            },
+            {
+                text: 'Working directly with people',
+                description: 'Teaching, counseling, helping, serving others',
+                weights: { communication: 3, teamwork: 3, creativity: 1, hands_on: 1 }
+            },
+            {
+                text: 'Managing projects and teams',
+                description: 'Leadership, coordination, organization',
+                weights: { business: 3, teamwork: 3, communication: 2, problem_solving: 2 }
+            },
+            {
+                text: 'Conducting research and experiments',
+                description: 'Scientific investigation, testing hypotheses',
+                weights: { science: 3, problem_solving: 2, hands_on: 2, math: 1 }
+            }
+        ]
+    },
+    {
+        id: 23,
+        type: 'multi-select',
+        category: 'subjects',
+        question: 'Which subject areas interest you most?',
+        description: 'Select up to 3 that appeal to you',
+        options: [
+            {
+                text: 'Arts and Creative Expression',
+                weights: { creativity: 2, design: 2, communication: 1 }
+            },
+            {
+                text: 'Health and Human Services',
+                weights: { science: 2, communication: 2, teamwork: 1 }
+            },
+            {
+                text: 'Technology and Innovation',
+                weights: { technology: 2, problem_solving: 2, math: 1 }
+            },
+            {
+                text: 'Business and Economics',
+                weights: { business: 2, math: 1, communication: 1 }
+            },
+            {
+                text: 'Law and Public Policy',
+                weights: { communication: 2, problem_solving: 2, teamwork: 1 }
+            },
+            {
+                text: 'Education and Teaching',
+                weights: { communication: 2, teamwork: 2, creativity: 1 }
+            },
+            {
+                text: 'Environment and Sustainability',
+                weights: { science: 2, problem_solving: 1, hands_on: 1 }
+            },
+            {
+                text: 'Engineering and Manufacturing',
+                weights: { math: 2, science: 1, hands_on: 2 }
+            },
+            {
+                text: 'Sports and Fitness',
+                weights: { hands_on: 2, teamwork: 1, science: 1 }
+            },
+            {
+                text: 'Agriculture and Food Systems',
+                weights: { science: 2, hands_on: 2, business: 1 }
+            }
+        ]
+    },
+    
+    // ==================== PERFORMING ARTS FILTER ====================
+    {
+        id: 24,
+        type: 'multiple-choice',
+        category: 'filter',
+        question: 'Do you have experience or interest in performing arts?',
+        description: 'This helps us show relevant creative programs',
+        options: [
+            {
+                text: 'Music performance or composition',
+                description: 'Playing instruments, singing, music production',
+                weights: { creativity: 2, communication: 1 },
+                performingArtsInterest: ['music']
+            },
+            {
+                text: 'Theater, acting, or stage performance',
+                description: 'Acting, directing, stage design, drama',
+                weights: { creativity: 2, communication: 2, teamwork: 1 },
+                performingArtsInterest: ['theatre']
+            },
+            {
+                text: 'Both music and theater',
+                description: 'I enjoy multiple performing arts',
+                weights: { creativity: 3, communication: 2, teamwork: 1 },
+                performingArtsInterest: ['music', 'theatre']
+            },
+            {
+                text: 'Neither - not interested in performing arts',
+                description: 'I prefer other creative or academic paths',
+                weights: {},
+                performingArtsInterest: []
+            }
+        ]
+    }
 ];
 
 // ==================== STATE MANAGEMENT ====================
@@ -471,6 +635,7 @@ let userScores = {
     business: 0
 };
 let programTypePreference = null;
+let performingArtsInterest = [];
 
 // ==================== QUIZ FUNCTIONS ====================
 function startQuiz() {
@@ -560,6 +725,11 @@ function selectOption(index) {
     // Store program type preference if this is the final question
     if (selectedOption.programTypePreference !== undefined) {
         programTypePreference = selectedOption.programTypePreference;
+    }
+    
+    // Store performing arts interest if provided (Q24)
+    if (selectedOption.performingArtsInterest !== undefined) {
+        performingArtsInterest = selectedOption.performingArtsInterest;
     }
     
     // Enable next button
@@ -664,35 +834,95 @@ function calculateResults() {
         }
         
         if (response.type === 'scale') {
-            userScores[response.attribute] += response.value * response.multiplier;
+            // FIXED: Scale questions were too powerful - reduce weight but not too much
+            userScores[response.attribute] += (response.value * response.multiplier) * 0.6;
         }
     });
+    
+    // FIXED: Better normalization based on actual max possible scores
+    const normalizedUserScores = {};
+    const maxScores = {
+        math: 34,           // Updated for 23 questions
+        science: 30,        // Updated for 23 questions
+        technology: 36,     // Updated for 23 questions
+        design: 40,         // Updated for 23 questions
+        problem_solving: 32,// Updated for 23 questions
+        hands_on: 32,       // Updated for 23 questions
+        teamwork: 32,       // Updated for 23 questions
+        creativity: 42,     // Updated for 23 questions
+        communication: 36,  // Updated for 23 questions
+        business: 28        // Updated for 23 questions
+    };
+    
+    Object.keys(userScores).forEach(attribute => {
+        const rawScore = userScores[attribute];
+        const maxScore = maxScores[attribute] || 20;
+        // Normalize to 0-10 scale, cap at 10
+        normalizedUserScores[attribute] = Math.min((rawScore / maxScore) * 10, 10);
+    });
+    
+    console.log('User Scores (normalized):', normalizedUserScores); // Debug
     
     // Calculate match scores for each program
     const programMatches = programs.map(program => {
         let matchScore = 0;
-        let maxPossibleScore = 0;
+        let totalWeight = 0;
         
+        // FIXED: Completely new matching algorithm
         Object.keys(program.attributes).forEach(attribute => {
-            const programValue = program.attributes[attribute];
-            const userValue = userScores[attribute];
+            const programValue = program.attributes[attribute]; // 0-10 (how important to program)
+            const userValue = normalizedUserScores[attribute] || 0; // 0-10 (user's strength)
             
-            // Calculate similarity (higher is better)
-            const difference = Math.abs(programValue - userValue);
-            const similarity = 10 - Math.min(difference, 10);
-            
-            matchScore += similarity * programValue; // Weight by program importance
-            maxPossibleScore += 10 * programValue;
+            // Only count attributes that matter to the program (>= 5)
+            if (programValue >= 5) {
+                const difference = Math.abs(programValue - userValue);
+                
+                // Calculate match score for this attribute
+                let attributeMatch = 0;
+                
+                if (difference <= 2) {
+                    // Great match: user score is very close to requirement
+                    attributeMatch = 10;
+                } else if (difference <= 4) {
+                    // Good match: user score is reasonably close
+                    attributeMatch = 7;
+                } else if (difference <= 6) {
+                    // Fair match: some gap
+                    attributeMatch = 4;
+                } else {
+                    // Poor match: large gap
+                    attributeMatch = 1;
+                }
+                
+                // Bonus if user exceeds requirement
+                if (userValue > programValue && programValue >= 7) {
+                    attributeMatch += 2; // Bonus for exceeding high requirements
+                }
+                
+                // Weight by how important this attribute is to the program
+                // High importance (8-10) = 3x weight
+                // Medium importance (6-7) = 2x weight  
+                // Low importance (5) = 1x weight
+                let importance = 1;
+                if (programValue >= 8) importance = 3;
+                else if (programValue >= 6) importance = 2;
+                
+                matchScore += attributeMatch * importance;
+                totalWeight += 10 * importance;
+            }
         });
         
-        const matchPercentage = (matchScore / maxPossibleScore) * 100;
+        const matchPercentage = totalWeight > 0 ? (matchScore / totalWeight) * 100 : 0;
         
         return {
             program: program,
-            matchPercentage: matchPercentage,
-            matchScore: matchScore
+            matchPercentage: Math.min(matchPercentage, 100),
+            matchScore: matchScore,
+            userScores: normalizedUserScores // Store for debugging
         };
     });
+    
+    console.log('Top 10 matches:', programMatches.sort((a,b) => b.matchPercentage - a.matchPercentage).slice(0,10)); // Debug
     
     // FIXED: Filter by program type preferences (can be multiple types now)
     let filteredMatches = programMatches;
@@ -703,6 +933,25 @@ function calculateResults() {
     } else if (programTypePreference && typeof programTypePreference === 'string') {
         // Fallback for old single-selection format
         filteredMatches = programMatches.filter(m => m.program.type === programTypePreference);
+    }
+    
+    // Filter out Music and Professional Theatre if user has no interest in performing arts
+    if (performingArtsInterest !== null && Array.isArray(performingArtsInterest)) {
+        filteredMatches = filteredMatches.filter(match => {
+            const programId = match.program.id;
+            
+            // If program is Music, only show if user selected music interest
+            if (programId === 'music' && !performingArtsInterest.includes('music')) {
+                return false;
+            }
+            
+            // If program is Professional Theatre, only show if user selected theatre interest
+            if (programId === 'professional-theatre' && !performingArtsInterest.includes('theatre')) {
+                return false;
+            }
+            
+            return true;
+        });
     }
     
     // Sort by match percentage and get top 5
@@ -815,14 +1064,35 @@ function getMatchReasons(program) {
     const reasons = [];
     const strongAttributes = [];
     
-    // Find user's strongest attributes
+    // FIXED: Use same normalization as calculateResults (23 questions)
+    const maxScores = {
+        math: 34,
+        science: 30,
+        technology: 36,
+        design: 40,
+        problem_solving: 32,
+        hands_on: 32,
+        teamwork: 32,
+        creativity: 42,
+        communication: 36,
+        business: 28
+    };
+    
+    const normalizedUserScores = {};
     Object.keys(userScores).forEach(attribute => {
-        if (userScores[attribute] >= 15) {
+        const rawScore = userScores[attribute];
+        const maxScore = maxScores[attribute] || 20;
+        normalizedUserScores[attribute] = Math.min((rawScore / maxScore) * 10, 10);
+    });
+    
+    // Find user's strongest attributes (normalized score >= 7 out of 10)
+    Object.keys(normalizedUserScores).forEach(attribute => {
+        if (normalizedUserScores[attribute] >= 7) {
             strongAttributes.push(attribute);
         }
     });
     
-    // Match with program's strong attributes
+    // Match with program's important attributes (>= 7)
     Object.keys(program.attributes).forEach(attribute => {
         if (program.attributes[attribute] >= 7 && strongAttributes.includes(attribute)) {
             reasons.push(getAttributeLabel(attribute));
@@ -874,6 +1144,7 @@ function restartQuiz() {
         business: 0
     };
     programTypePreference = null;
+    performingArtsInterest = [];
     
     document.getElementById('results-screen').classList.remove('active');
     document.getElementById('welcome-screen').classList.add('active');
